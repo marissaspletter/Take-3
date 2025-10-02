@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lean Intake System - Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="bg-[#0d99ff] text-white py-4 px-6 shadow-lg">
+    <div class="max-w-7xl mx-auto flex justify-between items-center flex-wrap gap-4">
+      <div class="flex items-center gap-6">
+        <h1 class="text-xl font-bold">LEAN INTAKE SYSTEM</h1>
+        <nav class="hidden md:flex gap-4 text-sm">
+          <a href="index.html" class="hover:underline font-semibold">DASHBOARD</a>
+          <a href="form.html" class="hover:underline">OPEN</a>
+          <a href="kanban.html" class="hover:underline">SEARCH</a>
+          <a href="form.html" class="hover:underline">CREATE</a>
+        </nav>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="text-sm">Portfolio Lead</span>
+        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+          <svg class="w-6 h-6 text-[#0d99ff]" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-6 py-16">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold text-gray-900 mb-4">Welcome to Lean Intake System</h2>
+      <p class="text-lg text-gray-600">Manage your lean proposals and track progress</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Kanban Board Card -->
+      <a href="kanban.html" class="group">
+        <div class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow">
+          <div class="flex items-center justify-center w-16 h-16 bg-[#c8b6ff] rounded-lg mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-2">Portfolio Kanban Board</h3>
+          <p class="text-gray-600">View and manage all lean proposals across different stages</p>
+        </div>
+      </a>
+
+      <!-- Lean Intake Form Card -->
+      <a href="form.html" class="group">
+        <div class="bg-white rounded-lg shadow-lg p-8 hover:shadow-xl transition-shadow">
+          <div class="flex items-center justify-center w-16 h-16 bg-[#006C5B] rounded-lg mb-4 group-hover:scale-110 transition-transform">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-2">Lean Intake Form</h3>
+          <p class="text-gray-600">Create a new lean proposal and submit for review</p>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#9747ff] text-white py-8 px-6 mt-16">
+    <div class="max-w-4xl mx-auto">
+      <h3 class="text-xl font-bold mb-4">Key Activities:</h3>
+      <ul class="space-y-2 text-sm">
+        <li>• Connect with relevant stakeholders to fully understand the problem</li>
+        <li>• Refine Epic Description, scope, and outcome hypothesis</li>
+        <li>• Give initial prioritization score (independent of other Epics)</li>
+        <li>• Develop preliminary Cost estimates and returns (benefits)</li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
