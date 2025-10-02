@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lean Intake Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .collapsible-header {
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s ease;
+    }
+    .collapsible-header:hover {
+      opacity: 0.9;
+    }
+    .chevron {
+      transition: transform 0.3s ease;
+    }
+    .chevron.open {
+      transform: rotate(90deg);
+    }
+    .subsection-header {
+      cursor: pointer;
+      user-select: none;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="bg-[#0d99ff] text-white py-4 px-6 shadow-lg">
+    <div class="max-w-7xl mx-auto flex justify-between items-center flex-wrap gap-4">
+      <div class="flex items-center gap-6">
+        <!-- Added back button to home page -->
+        <a href="index.html" class="text-xl font-bold hover:underline">LEAN INTAKE SYSTEM</a>
+        <nav class="hidden md:flex gap-4 text-sm">
+          <a href="index.html" class="hover:underline">DASHBOARD</a>
+          <a href="form.html" class="hover:underline font-semibold">OPEN</a>
+          <a href="kanban.html" class="hover:underline">SEARCH</a>
+          <a href="form.html" class="hover:underline">CREATE</a>
+        </nav>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="text-sm">Portfolio Lead</span>
+        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+          <svg class="w-6 h-6 text-[#0d99ff]" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Form Container -->
+  <div class="max-w-4xl mx-auto px-6 py-8">
+    <div class="bg-white rounded-lg shadow-lg p-8">
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">LEAN PROPOSAL</h1>
+        <p class="text-gray-600">Please complete the required fields. <span class="text-red-600">*</span> indicates mandatory fields.</p>
+      </div>
+
+      <form id="leanIntakeForm" action="https://formspree.io/f/xrbyklvr" method="POST">
+        <!-- Part 1 - Intake -->
+        <div class="mb-6">
+          <div class="collapsible-header bg-[#0d99ff] text-white p-4 rounded-lg flex items-center justify-between" onclick="toggleSection('intake')">
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 chevron" id="intakeChevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+              <span class="font-semibold text-lg">Part 1 – Intake</span>
+            </div>
+          </div>
+          
+          <div id="intakeContent" class="mt-6 space-y-8 hidden">
+            <!-- Funnel Entry Date -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-900 mb-2">
+                Funnel Entry Date <span class="text-red-600">*</span>
+              </label>
+              <input type="date" name="funnelEntryDate" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+            </div>
+
+            <!-- Epic Anchoring Journey / Platform -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-900 mb-2">
+                Epic Anchoring Journey / Platform <span class="text-red-600">*</span>
+              </label>
+              <select name="epicAnchoringJourney" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                <option value="">Select...</option>
+                <option value="Customer Onboarding">Customer Onboarding</option>
+                <option value="Account Management">Account Management</option>
+                <option value="Payments">Payments</option>
+                <option value="Lending">Lending</option>
+                <option value="Digital Banking">Digital Banking</option>
+              </select>
+            </div>
+
+            <!-- Lean Proposal Owner -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-900 mb-2">
+                Lean Proposal Owner
+              </label>
+              <select name="leanProposalOwner" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                <option value="">Select...</option>
+                <option value="John Doe">John Doe</option>
+                <option value="Jane Smith">Jane Smith</option>
+                <option value="Mike Johnson">Mike Johnson</option>
+              </select>
+            </div>
+
+            <!-- Key Stakeholders -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-900 mb-2">
+                Key Stakeholders
+              </label>
+              <textarea name="keyStakeholders" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent"></textarea>
+            </div>
+
+            <!-- Epic 1 Title -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-900 mb-2">
+                Epic 1 Title <span class="text-red-600">*</span>
+              </label>
+              <input type="text" name="epic1Title" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+            </div>
+
+            <!-- Epic 1 Description -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-900 mb-2">
+                Epic 1 Description <span class="text-red-600">*</span>
+              </label>
+              <textarea name="epic1Description" rows="6" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent"></textarea>
+            </div>
+
+            <!-- Strategic Assessment -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-900 mb-2">
+                Strategic Assessment
+              </label>
+              <textarea name="strategicAssessment" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Part 2 - Reviewing -->
+        <div class="mb-6">
+          <div class="collapsible-header bg-[#c8b6ff] text-gray-900 p-4 rounded-lg flex items-center justify-between" onclick="toggleSection('reviewing')">
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 chevron" id="reviewingChevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+              <span class="font-semibold text-lg">Part 2 – Reviewing</span>
+            </div>
+          </div>
+          
+          <div id="reviewingContent" class="mt-6 space-y-8 hidden">
+            <!-- Business Value Hypothesis -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-900 mb-2">
+                Business Value Hypothesis
+              </label>
+              <textarea name="businessValueHypothesis" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent"></textarea>
+            </div>
+
+            <!-- Business Value Leading Indicators -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-900 mb-2">
+                Business Value Leading Indicators
+              </label>
+              <textarea name="businessValueLeadingIndicators" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent"></textarea>
+            </div>
+
+            <!-- In Scope -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-900 mb-2">
+                In Scope
+              </label>
+              <textarea name="inScope" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent"></textarea>
+            </div>
+
+            <!-- Out of Scope -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-900 mb-2">
+                Out of Scope
+              </label>
+              <textarea name="outOfScope" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent"></textarea>
+            </div>
+
+            <!-- Non-Functional Requirements -->
+            <div>
+              <label class="block text-sm font-semibold text-gray-900 mb-2">
+                Non-Functional Requirements
+              </label>
+              <textarea name="nonFunctionalRequirements" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent"></textarea>
+            </div>
+
+            <!-- MVP Features -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label class="block text-sm font-semibold text-gray-900">
+                  Minimum Viable Product (MVP) Features
+                </label>
+                <button type="button" onclick="addMVPFeature()" class="text-[#006C5B] hover:text-[#005a4d] font-bold text-xl">+</button>
+              </div>
+              <div id="mvpFeaturesContainer" class="space-y-4">
+                <!-- MVP Feature rows will be added here -->
+              </div>
+            </div>
+
+            <!-- Complete Build Features -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label class="block text-sm font-semibold text-gray-900">
+                  Complete Build Features
+                </label>
+                <button type="button" onclick="addCompleteBuildFeature()" class="text-[#006C5B] hover:text-[#005a4d] font-bold text-xl">+</button>
+              </div>
+              <div id="completeBuildFeaturesContainer" class="space-y-4">
+                <!-- Complete Build Feature rows will be added here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Part 3 - Analyzing -->
+        <div class="mb-6">
+          <div class="collapsible-header bg-[#ffcd29] text-gray-900 p-4 rounded-lg flex items-center justify-between" onclick="toggleSection('analyzing')">
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 chevron" id="analyzingChevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+              <span class="font-semibold text-lg">Part 3 – Analyzing</span>
+            </div>
+          </div>
+          
+          <div id="analyzingContent" class="mt-6 space-y-8 hidden">
+            <!-- Costs Subsection -->
+            <div>
+              <div class="subsection-header bg-gray-200 p-3 rounded-lg flex items-center gap-2 mb-4" onclick="toggleSubsection('costs')">
+                <svg class="w-4 h-4 chevron" id="costsChevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+                <span class="font-semibold">Costs</span>
+              </div>
+              
+              <div id="costsContent" class="space-y-6 hidden">
+                <!-- MVP Costs (Labor) -->
+                <div>
+                  <label class="block text-sm font-semibold text-gray-900 mb-2">MVP Costs (Labor)</label>
+                  <div class="grid grid-cols-3 gap-4">
+                    <input type="number" name="mvpCostsLaborSprints" placeholder="# Sprints" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                    <input type="number" name="mvpCostsLaborCapacity" placeholder="Squad Capacity" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                    <input type="number" name="mvpCostsLaborAmount" placeholder="$ Amount" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                  </div>
+                </div>
+
+                <!-- MVP Costs (Non-Labor) -->
+                <div>
+                  <label class="block text-sm font-semibold text-gray-900 mb-2">MVP Costs (Non-Labor)</label>
+                  <input type="number" name="mvpCostsNonLabor" placeholder="$ Amount" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                </div>
+
+                <!-- Full Costs (Labor) -->
+                <div>
+                  <label class="block text-sm font-semibold text-gray-900 mb-2">Full Costs (Labor)</label>
+                  <div class="grid grid-cols-3 gap-4">
+                    <input type="number" name="fullCostsLaborSprints" placeholder="# Sprints" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                    <input type="number" name="fullCostsLaborCapacity" placeholder="Squad Capacity" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                    <input type="number" name="fullCostsLaborAmount" placeholder="$ Amount" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                  </div>
+                </div>
+
+                <!-- Full Costs (Non-Labor) -->
+                <div>
+                  <label class="block text-sm font-semibold text-gray-900 mb-2">Full Costs (Non-Labor)</label>
+                  <div class="grid grid-cols-2 gap-4">
+                    <input type="number" name="fullCostsNonLaborFees" placeholder="# Integration Fees" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                    <input type="number" name="fullCostsNonLaborNVP" placeholder="NVP $" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Benefits Subsection -->
+            <div>
+              <div class="subsection-header bg-gray-200 p-3 rounded-lg flex items-center gap-2 mb-4" onclick="toggleSubsection('benefits')">
+                <svg class="w-4 h-4 chevron" id="benefitsChevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+                <span class="font-semibold">Benefits</span>
+              </div>
+              
+              <div id="benefitsContent" class="space-y-6 hidden">
+                <!-- Expected Benefits (Financial) -->
+                <div>
+                  <label class="block text-sm font-semibold text-gray-900 mb-2">Expected Benefits (Financial)</label>
+                  <div class="grid grid-cols-3 gap-4">
+                    <input type="text" name="benefitsFinancialName" placeholder="Name" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                    <input type="date" name="benefitsFinancialDate" placeholder="QBR Commitment Date" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                    <select name="benefitsFinancialStatus" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                      <option value="">QBR Commitment Status</option>
+                      <option value="Committed">Committed</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Not Committed">Not Committed</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Expected Benefits (Non-Financial) -->
+                <div>
+                  <label class="block text-sm font-semibold text-gray-900 mb-2">Expected Benefits (Non-Financial)</label>
+                  <div class="grid grid-cols-3 gap-4">
+                    <input type="text" name="benefitsNonFinancialName" placeholder="Name" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                    <input type="date" name="benefitsNonFinancialDate" placeholder="QBR Commitment Date" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                    <select name="benefitsNonFinancialStatus" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+                      <option value="">QBR Commitment Status</option>
+                      <option value="Committed">Committed</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Not Committed">Not Committed</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Benefit Description -->
+                <div>
+                  <label class="block text-sm font-semibold text-gray-900 mb-2">Benefit Description</label>
+                  <textarea name="benefitDescription" rows="6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Analysis Summary Subsection -->
+            <div>
+              <div class="subsection-header bg-gray-200 p-3 rounded-lg flex items-center gap-2 mb-4" onclick="toggleSubsection('analysisSummary')">
+                <svg class="w-4 h-4 chevron" id="analysisSummaryChevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+                <span class="font-semibold">Analysis Summary</span>
+              </div>
+              
+              <div id="analysisSummaryContent" class="space-y-6 hidden">
+                <div>
+                  <label class="block text-sm font-semibold text-gray-900 mb-2">Analysis Summary</label>
+                  <textarea name="analysisSummary" rows="8" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Detailed Analysis Notes Subsection -->
+            <div>
+              <div class="subsection-header bg-gray-200 p-3 rounded-lg flex items-center gap-2 mb-4" onclick="toggleSubsection('detailedNotes')">
+                <svg class="w-4 h-4 chevron" id="detailedNotesChevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+                <span class="font-semibold">Detailed Analysis Notes</span>
+              </div>
+              
+              <div id="detailedNotesContent" class="space-y-6 hidden">
+                <div>
+                  <label class="block text-sm font-semibold text-gray-900 mb-2">Other Notes</label>
+                  <textarea name="otherNotes" rows="10" placeholder="Examples:&#10;• Which internal and/or external customers are affected, and how?&#10;• What is the potential impact on solutions, programs, and services?&#10;• What is the potential impact on sales, distribution, deployment, and support?&#10;• Sequencing and Dependencies:" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent"></textarea>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-semibold text-gray-900 mb-2">Attachments</label>
+                  <textarea name="attachments" rows="4" placeholder="List any attachments or links here" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="flex gap-4 justify-end mt-8">
+          <button type="button" onclick="window.location.href='index.html'" class="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50">
+            CANCEL
+          </button>
+          <button type="button" onclick="saveForm()" class="px-6 py-3 bg-[#0d99ff] text-white rounded-lg font-semibold hover:bg-[#0b7fd9]">
+            SAVE
+          </button>
+          <button type="submit" class="px-6 py-3 bg-[#0d99ff] text-white rounded-lg font-semibold hover:bg-[#0b7fd9]">
+            SUBMIT
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#9747ff] text-white py-8 px-6 mt-16">
+    <div class="max-w-4xl mx-auto">
+      <h3 class="text-xl font-bold mb-4">Key Activities:</h3>
+      <ul class="space-y-2 text-sm">
+        <li>• Connect with relevant stakeholders to fully understand the problem</li>
+        <li>• Refine Epic Description, scope, and outcome hypothesis</li>
+        <li>• Give initial prioritization score (independent of other Epics)</li>
+        <li>• Develop preliminary Cost estimates and returns (benefits)</li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    // Initialize MVP and Complete Build features
+    let mvpFeatureCount = 0;
+    let completeBuildFeatureCount = 0;
+
+    // Add initial 3 rows for MVP Features
+    for (let i = 0; i < 3; i++) {
+      addMVPFeature();
+    }
+
+    // Add initial 3 rows for Complete Build Features
+    for (let i = 0; i < 3; i++) {
+      addCompleteBuildFeature();
+    }
+
+    function toggleSection(section) {
+      const content = document.getElementById(section + 'Content');
+      const chevron = document.getElementById(section + 'Chevron');
+      
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        chevron.classList.add('open');
+      } else {
+        content.classList.add('hidden');
+        chevron.classList.remove('open');
+      }
+    }
+
+    function toggleSubsection(subsection) {
+      const content = document.getElementById(subsection + 'Content');
+      const chevron = document.getElementById(subsection + 'Chevron');
+      
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        chevron.classList.add('open');
+      } else {
+        content.classList.add('hidden');
+        chevron.classList.remove('open');
+      }
+    }
+
+    function addMVPFeature() {
+      mvpFeatureCount++;
+      const container = document.getElementById('mvpFeaturesContainer');
+      const featureRow = document.createElement('div');
+      featureRow.className = 'grid grid-cols-[1fr,1fr,auto] gap-4 items-center';
+      featureRow.innerHTML = `
+        <input type="text" name="mvpFeature${mvpFeatureCount}" placeholder="Feature" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+        <input type="text" name="mvpFeatureAssigned${mvpFeatureCount}" placeholder="Assigned To" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+        <button type="button" onclick="this.parentElement.remove()" class="text-red-600 hover:text-red-800 font-bold text-xl px-2">×</button>
+      `;
+      container.appendChild(featureRow);
+    }
+
+    function addCompleteBuildFeature() {
+      completeBuildFeatureCount++;
+      const container = document.getElementById('completeBuildFeaturesContainer');
+      const featureRow = document.createElement('div');
+      featureRow.className = 'grid grid-cols-[1fr,1fr,auto] gap-4 items-center';
+      featureRow.innerHTML = `
+        <input type="text" name="completeBuildFeature${completeBuildFeatureCount}" placeholder="Feature" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+        <input type="text" name="completeBuildFeatureAssigned${completeBuildFeatureCount}" placeholder="Assigned To" class="px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#006C5B] focus:border-transparent">
+        <button type="button" onclick="this.parentElement.remove()" class="text-red-600 hover:text-red-800 font-bold text-xl px-2">×</button>
+      `;
+      container.appendChild(featureRow);
+    }
+
+    function saveForm() {
+      const formData = new FormData(document.getElementById('leanIntakeForm'));
+      const data = Object.fromEntries(formData.entries());
+      localStorage.setItem('leanFormDraft', JSON.stringify(data));
+      alert('Form saved as draft!');
+    }
+
+    // Handle form submission
+    document.getElementById('leanIntakeForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+      
+      // Determine which section is most complete
+      let stage = 'Lean Proposal Intake';
+      if (data.businessValueHypothesis || data.inScope || data.outOfScope) {
+        stage = 'Lean Proposal Review';
+      }
+      if (data.analysisSummary || data.mvpCostsLaborAmount || data.benefitDescription) {
+        stage = 'Lean Proposal Analysis';
+      }
+      
+      // Create Kanban card
+      const card = {
+        id: Date.now(),
+        title: data.epic1Title || 'Untitled Proposal',
+        date: data.funnelEntryDate || new Date().toISOString().split('T')[0],
+        description: data.epic1Description || '',
+        owner: data.leanProposalOwner || 'Unassigned',
+        stage: stage,
+        timestamp: new Date().toISOString()
+      };
+      
+      // Save to localStorage
+      let cards = JSON.parse(localStorage.getItem('kanbanCards') || '[]');
+      cards.push(card);
+      localStorage.setItem('kanbanCards', JSON.stringify(cards));
+      
+      // Submit to Formspree
+      fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          alert('Form submitted successfully! A card has been added to the Kanban board.');
+          window.location.href = 'kanban.html';
+        } else {
+          alert('Form submitted to Kanban board, but there was an issue with Formspree.');
+          window.location.href = 'kanban.html';
+        }
+      }).catch(error => {
+        alert('Form submitted to Kanban board, but there was an issue with Formspree.');
+        window.location.href = 'kanban.html';
+      });
+    });
+
+    // Load draft if exists
+    window.addEventListener('load', function() {
+      const draft = localStorage.getItem('leanFormDraft');
+      if (draft) {
+        const data = JSON.parse(draft);
+        Object.keys(data).forEach(key => {
+          const input = document.querySelector(`[name="${key}"]`);
+          if (input) {
+            input.value = data[key];
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
