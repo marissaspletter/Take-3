@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Kanban Board</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .kanban-column {
+      min-height: 500px;
+    }
+    .kanban-card {
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .kanban-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .drag-over {
+      background-color: #f0f0f0;
+      border: 2px dashed #006C5B;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Header -->
+  <header class="bg-[#0d99ff] text-white py-4 px-6 shadow-lg">
+    <div class="max-w-7xl mx-auto flex justify-between items-center flex-wrap gap-4">
+      <div class="flex items-center gap-6">
+        <!-- Added back button to home page -->
+        <a href="index.html" class="text-xl font-bold hover:underline">LEAN INTAKE SYSTEM</a>
+        <nav class="hidden md:flex gap-4 text-sm">
+          <a href="index.html" class="hover:underline">DASHBOARD</a>
+          <a href="form.html" class="hover:underline">OPEN</a>
+          <a href="kanban.html" class="hover:underline font-semibold">SEARCH</a>
+          <a href="form.html" class="hover:underline">CREATE</a>
+        </nav>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="text-sm">Portfolio Lead</span>
+        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+          <svg class="w-6 h-6 text-[#0d99ff]" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-6 py-8">
+    <div class="mb-8 flex justify-between items-center">
+      <h1 class="text-3xl font-bold text-gray-900">Portfolio Kanban Board</h1>
+      <div class="flex gap-4">
+        <button onclick="clearAllCards()" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm">
+          Clear All
+        </button>
+        <a href="form.html" class="px-4 py-2 bg-[#006C5B] text-white rounded-lg hover:bg-[#005a4d] text-sm">
+          + New Proposal
+        </a>
+      </div>
+    </div>
+
+    <!-- Kanban Board -->
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Lean Proposal Intake Column -->
+      <div class="bg-white rounded-lg shadow-lg p-4">
+        <div class="bg-[#0d99ff] text-white p-3 rounded-lg mb-4">
+          <h2 class="font-bold text-lg">Lean Proposal Intake</h2>
+          <p class="text-sm opacity-90">Initial proposals</p>
+        </div>
+        <div id="intakeColumn" class="kanban-column space-y-4" ondrop="drop(event, 'Lean Proposal Intake')" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+          <!-- Cards will be added here -->
+        </div>
+      </div>
+
+      <!-- Lean Proposal Review Column -->
+      <div class="bg-white rounded-lg shadow-lg p-4">
+        <div class="bg-[#c8b6ff] text-gray-900 p-3 rounded-lg mb-4">
+          <h2 class="font-bold text-lg">Lean Proposal Review</h2>
+          <p class="text-sm opacity-75">Under review</p>
+        </div>
+        <div id="reviewColumn" class="kanban-column space-y-4" ondrop="drop(event, 'Lean Proposal Review')" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+          <!-- Cards will be added here -->
+        </div>
+      </div>
+
+      <!-- Lean Proposal Analysis Column -->
+      <div class="bg-white rounded-lg shadow-lg p-4">
+        <div class="bg-[#ffcd29] text-gray-900 p-3 rounded-lg mb-4">
+          <h2 class="font-bold text-lg">Lean Proposal Analysis</h2>
+          <p class="text-sm opacity-75">Being analyzed</p>
+        </div>
+        <div id="analysisColumn" class="kanban-column space-y-4" ondrop="drop(event, 'Lean Proposal Analysis')" ondragover="allowDrop(event)" ondragleave="dragLeave(event)">
+          <!-- Cards will be added here -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#9747ff] text-white py-8 px-6 mt-16">
+    <div class="max-w-7xl mx-auto">
+      <h3 class="text-xl font-bold mb-4">Key Activities:</h3>
+      <ul class="space-y-2 text-sm">
+        <li>• Connect with relevant stakeholders to fully understand the problem</li>
+        <li>• Refine Epic Description, scope, and outcome hypothesis</li>
+        <li>• Give initial prioritization score (independent of other Epics)</li>
+        <li>• Develop preliminary Cost estimates and returns (benefits)</li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    // Load and display cards
+    function loadCards() {
+      const cards = JSON.parse(localStorage.getItem('kanbanCards') || '[]');
+      
+      // Clear all columns
+      document.getElementById('intakeColumn').innerHTML = '';
+      document.getElementById('reviewColumn').innerHTML = '';
+      document.getElementById('analysisColumn').innerHTML = '';
+      
+      // Add cards to appropriate columns
+      cards.forEach(card => {
+        addCardToColumn(card);
+      });
+    }
+
+    function addCardToColumn(card) {
+      const columnMap = {
+        'Lean Proposal Intake': 'intakeColumn',
+        'Lean Proposal Review': 'reviewColumn',
+        'Lean Proposal Analysis': 'analysisColumn'
+      };
+      
+      const columnId = columnMap[card.stage];
+      if (!columnId) return;
+      
+      const column = document.getElementById(columnId);
+      const cardElement = document.createElement('div');
+      cardElement.className = 'kanban-card bg-yellow-100 border-l-4 border-yellow-500 p-4 rounded-lg shadow';
+      cardElement.draggable = true;
+      cardElement.dataset.cardId = card.id;
+      cardElement.ondragstart = drag;
+      
+      cardElement.innerHTML = `
+        <div class="flex justify-between items-start mb-2">
+          <h3 class="font-bold text-gray-900 text-sm">${card.title}</h3>
+          <button onclick="deleteCard(${card.id})" class="text-red-600 hover:text-red-800 text-xl leading-none">×</button>
+        </div>
+        <p class="text-xs text-gray-600 mb-2">${card.date}</p>
+        <p class="text-sm text-gray-700 mb-2 line-clamp-2">${card.description.substring(0, 100)}${card.description.length > 100 ? '...' : ''}</p>
+        <div class="flex items-center gap-2 text-xs text-gray-600">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+          </svg>
+          <span>${card.owner}</span>
+        </div>
+      `;
+      
+      column.appendChild(cardElement);
+    }
+
+    function drag(event) {
+      event.dataTransfer.setData('cardId', event.target.dataset.cardId);
+    }
+
+    function allowDrop(event) {
+      event.preventDefault();
+      event.currentTarget.classList.add('drag-over');
+    }
+
+    function dragLeave(event) {
+      event.currentTarget.classList.remove('drag-over');
+    }
+
+    function drop(event, newStage) {
+      event.preventDefault();
+      event.currentTarget.classList.remove('drag-over');
+      
+      const cardId = event.dataTransfer.getData('cardId');
+      let cards = JSON.parse(localStorage.getItem('kanbanCards') || '[]');
+      
+      // Update card stage
+      cards = cards.map(card => {
+        if (card.id == cardId) {
+          card.stage = newStage;
+        }
+        return card;
+      });
+      
+      localStorage.setItem('kanbanCards', JSON.stringify(cards));
+      loadCards();
+    }
+
+    function deleteCard(cardId) {
+      if (confirm('Are you sure you want to delete this card?')) {
+        let cards = JSON.parse(localStorage.getItem('kanbanCards') || '[]');
+        cards = cards.filter(card => card.id !== cardId);
+        localStorage.setItem('kanbanCards', JSON.stringify(cards));
+        loadCards();
+      }
+    }
+
+    function clearAllCards() {
+      if (confirm('Are you sure you want to clear all cards? This cannot be undone.')) {
+        localStorage.removeItem('kanbanCards');
+        loadCards();
+      }
+    }
+
+    // Load cards on page load
+    window.addEventListener('load', loadCards);
+  </script>
+</body>
+</html>
